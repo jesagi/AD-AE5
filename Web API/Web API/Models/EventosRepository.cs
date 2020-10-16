@@ -44,5 +44,36 @@ namespace AplicacionWeb.Models
             }
             
         }
+        internal List<EventoDTO> RetrieveDTO()
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "select * from Eventos";
+
+            try
+            {
+                con.Open();
+                MySqlDataReader res = command.ExecuteReader();
+
+                EventoDTO e = null;
+                List<EventoDTO> eventos = new List<EventoDTO>();
+
+                while (res.Read())
+                {
+                    Debug.WriteLine("Recuperado: " + res.GetString(1) + " " + res.GetString(2) + " " + res.GetString(4));
+                    e = new EventoDTO(res.GetString(1), res.GetString(2), res.GetString(4));
+                    eventos.Add(e);
+                }
+
+                con.Close();
+                return eventos;
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine("Error de conexion");
+                return null;
+            }
+
+        }
     }
 }

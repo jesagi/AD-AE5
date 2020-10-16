@@ -33,8 +33,8 @@ namespace Web_API.Models
 
                 while (res.Read())
                 {
-                    Debug.WriteLine("Recuperado: " + res.GetInt32(0) + " " + res.GetDouble(1) + " " + res.GetDouble(2) + " " + res.GetDouble(3) + " " + res.GetDouble(4) + " " + res.GetString(5) + " " + res.GetInt32(6) + " " + res.GetString(7));
-                    a = new Apuesta(res.GetInt32(0), res.GetDouble(1), res.GetDouble(2), res.GetDouble(3), res.GetDouble(4), res.GetString(5), res.GetInt32(6), res.GetString(7));
+                    Debug.WriteLine("Recuperado: " + res.GetInt32(0) + " " + res.GetInt32(1) + " " + res.GetString(2) + " " + res.GetDouble(3) + " " + res.GetDouble(4) + " " + res.GetString(5) + " " + res.GetInt32(6) + " " + res.GetString(7));
+                    a = new Apuesta(res.GetInt32(0), res.GetInt32(1), res.GetString(2), res.GetDouble(3), res.GetDouble(4), res.GetString(5), res.GetInt32(6), res.GetString(7));
                     apuestas.Add(a);
                 }
 
@@ -45,6 +45,106 @@ namespace Web_API.Models
             {
                 Debug.WriteLine("Error de conexion");
                 return null;
+            }
+
+        }
+        internal List<ApuestaDTO> RetrieveDTO()
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "select * from Apuestas";
+
+            try
+            {
+                con.Open();
+                MySqlDataReader res = command.ExecuteReader();
+
+                ApuestaDTO a = null;
+                List<ApuestaDTO> apuestas = new List<ApuestaDTO>();
+
+                while (res.Read())
+                {
+                    Debug.WriteLine("Recuperado: " + res.GetInt32(1) + " " + res.GetString(2) + " " + res.GetDouble(3) + " " + res.GetDouble(4) + " " + res.GetString(5) + " " + res.GetString(7));
+                    a = new ApuestaDTO(res.GetInt32(1), res.GetString(2), res.GetDouble(3), res.GetDouble(4), res.GetString(5), res.GetString(7));
+                    apuestas.Add(a);
+                }
+
+                con.Close();
+                return apuestas;
+            }
+            catch (MySqlException a)
+            {
+                Debug.WriteLine("Error de conexion");
+                return null;
+            }
+
+        }
+
+        public void Save(Apuesta a)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand com = con.CreateCommand();
+            com.CommandText = "insert into apuestas(mercado, tipoapuesta, cuota, dineroapostado, fecha, refevento, refusuario) values ('" + a.Mercado + "','" + a.TipoApuesta + "','" + a.Cuota + "','" + a.DinieroApostado + "''" + DateTime.Now.ToString("yyy/mm/dd") + "','" + 1 + "','" + a.RefUsuario + "') ";
+            Debug.WriteLine("Comando: " + com.CommandText);
+            try
+            {
+                con.Open();
+                com.ExecuteNonQuery();  //Problema en esta linea, da fallo de conexion
+                con.Close();
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine("Error de conexion");
+            }
+        }
+
+        public void ActualizarCuota(Apuesta a)
+        {
+            double probOver;
+            double probUnder;
+            double dineroOver = a.DinieroApostado;
+            double dineroUnder = a.DinieroApostado;
+            double cuotaOver;
+            double cuotaUnder;
+
+            MySqlConnection con = Connect();
+            MySqlCommand comOver = con.CreateCommand();
+            MySqlCommand comUnder = con.CreateCommand();
+            MySqlCommand updateCuota = con.CreateCommand();
+            comOver.CommandText = "select dineroover from mercados where idmercado is '" + a.Mercado + "'";
+            comUnder.CommandText = "select dinerounder from mercados where idmercado is '" + a.Mercado +"'";
+
+            try
+            {
+                con.Open();
+                dineroOver =+ double.Parse(comOver.ExecuteReader().ToString());
+                dineroUnder =+ double.Parse(comUnder.ExecuteReader().ToString());
+                con.Close();
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine("Error de conexion");
+            }
+
+            probOver = dineroOver / (dineroOver + dineroUnder);
+            probUnder = dineroUnder / (dineroOver + dineroUnder);
+
+            cuotaOver = 1 / probOver * 0.95;
+            cuotaUnder = 1 / probUnder * 0.95;
+
+            comOver.CommandText = "update mercados set cuotaover='" + cuotaOver + "', cuotaunder='" + cuotaUnder + "', dineroover='" + dineroOver + "', dinerounder='" + dineroUnder + "'";
+            comUnder.CommandText = "select dinerounder from mercados where idmercado is '" + a.Mercado + "'";
+
+            try
+            {
+                con.Open();
+                comOver.ExecuteReader();
+                comUnder.ExecuteReader();
+                con.Close();
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine("Error de conexion");
             }
 
         }

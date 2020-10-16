@@ -7,11 +7,12 @@ namespace AplicacionWeb.Models
 {
     public class Mercado
     {
-        public Mercado(int idMercado, double tipoMercado, double cuotaUnder, double dineroOver, double dineroUnder)
+        public Mercado(int idMercado, double tipoMercado, double cuotaUnder, double cuotaOver, double dineroOver, double dineroUnder)
         {
             IdMercado = idMercado;
             TipoMercado = tipoMercado;
             CuotaUnder = cuotaUnder;
+            CuotaOver = cuotaOver;
             DineroOver = dineroOver;
             DineroUnder = dineroUnder;
         }
@@ -19,7 +20,22 @@ namespace AplicacionWeb.Models
         public int IdMercado { get; set; }
         public double TipoMercado { get; set; }
         public double CuotaUnder { get; set; }
+        public double CuotaOver { get; set; }
         public double DineroOver { get; set; }
         public double DineroUnder { get; set; }
+    }
+
+    public class MercadoDTO
+    {
+        public MercadoDTO(double tipoMercado, double cuotaUnder, double cuotaOver)
+        {
+            TipoMercado = tipoMercado;
+            CuotaUnder = cuotaUnder;
+            CuotaOver = cuotaOver;
+        }
+
+        public double TipoMercado { get; set; }
+        public double CuotaUnder { get; set; }
+        public double CuotaOver { get; set; }
     }
 }

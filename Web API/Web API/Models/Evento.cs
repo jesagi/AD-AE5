@@ -22,4 +22,18 @@ namespace AplicacionWeb.Models
         public int RefMercado { get; set; }
         public string Fecha { get; set; }
     }
+
+    public class EventoDTO
+    {
+        public EventoDTO(string equipoLocal, string equipoVisitante, string fecha)
+        {
+            EquipoLocal = equipoLocal;
+            EquipoVisitante = equipoVisitante;
+            Fecha = fecha;
+        }
+
+        public string EquipoLocal { get; set; }
+        public string EquipoVisitante { get; set; }
+        public string Fecha { get; set; }
+    }
 }
