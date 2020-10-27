@@ -19,10 +19,12 @@ namespace Web_API.Controllers
             return mercados;
         }
 
-        // GET: api/Mercados/5
-        public string Get(int id)
+        // GET: api/Mercados?refevento=valor1&tipomercado=valor2
+        public IEnumerable<Mercado> Get(int refevento, double tipomercado)
         {
-            return "value";
+            var repo = new MercadosRepository();
+            List<Mercado> mercados = repo.RetrievebyEventoMercado(refevento,tipomercado);
+            return mercados;
         }
 
         // POST: api/Mercados

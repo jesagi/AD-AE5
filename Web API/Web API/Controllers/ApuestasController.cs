@@ -19,13 +19,26 @@ namespace Web_API.Controllers
             return apuestas;
         }
 
-        // GET: api/Apuestas/5
-        public string Get(int id)
+        // GET: api/Apuestas?emailusuario=value1&tipomercado=value2
+        [Authorize(Roles = "Admin")]
+        public IEnumerable<ApuestaDTO2> Get(string emailusuario, double tipomercado)
         {
-            return "value";
+            var repo = new ApuestasRepository();
+            List<ApuestaDTO2> apuesta = repo.RetrievebyUsuarioMercado(emailusuario, tipomercado);
+            return apuesta;
+        }
+
+        // GET: api/Apuestas?idmercado=value1&emailusuario=value2
+        [Authorize(Roles = "Admin")]
+        public IEnumerable<ApuestaDTO3> Get(int mercado, string emailusuario)
+        {
+            var repo = new ApuestasRepository();
+            List<ApuestaDTO3> apuesta = repo.RetrievebyMercadoUsuario(mercado, emailusuario);
+            return apuesta;
         }
 
         // POST: api/Apuestas
+        [Authorize]
         public void Post([FromBody]Apuesta apuesta)
         {
             var repo = new ApuestasRepository();

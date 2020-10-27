@@ -7,9 +7,10 @@ namespace AplicacionWeb.Models
 {
     public class Mercado
     {
-        public Mercado(int idMercado, double tipoMercado, double cuotaUnder, double cuotaOver, double dineroOver, double dineroUnder)
+        public Mercado(int idMercado, int refEvento, double tipoMercado, double cuotaUnder, double cuotaOver, double dineroOver, double dineroUnder)
         {
             IdMercado = idMercado;
+            RefEvento = refEvento;
             TipoMercado = tipoMercado;
             CuotaUnder = cuotaUnder;
             CuotaOver = cuotaOver;
@@ -18,6 +19,7 @@ namespace AplicacionWeb.Models
         }
 
         public int IdMercado { get; set; }
+        public int RefEvento { get; set; }
         public double TipoMercado { get; set; }
         public double CuotaUnder { get; set; }
         public double CuotaOver { get; set; }

@@ -80,6 +80,74 @@ namespace Web_API.Models
 
         }
 
+        internal List<ApuestaDTO2> RetrievebyUsuarioMercado(string email, double mercado)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "select tipoapuesta, cuota, dineroapostado, apuestas.refevento from apuestas LEFT JOIN mercados ON apuestas.idmercado=mercados.idmercado WHERE refusuario = @A AND tipomercado= @A2";
+            command.Parameters.AddWithValue("@A", email);
+            command.Parameters.AddWithValue("@A2", mercado);
+
+            try
+            {
+                con.Open();
+                MySqlDataReader res = command.ExecuteReader();
+
+                ApuestaDTO2 a = null;
+                List<ApuestaDTO2> apuestas = new List<ApuestaDTO2>();
+
+                while (res.Read())
+                {
+                    Debug.WriteLine("Recuperado: " + res.GetString(0) + " " + res.GetDouble(1) + " " + res.GetDouble(2) + res.GetString(3));
+                    a = new ApuestaDTO2(res.GetString(0), res.GetDouble(1), res.GetDouble(2), res.GetInt32(3));
+                    apuestas.Add(a);
+                }
+
+                con.Close();
+                return apuestas;
+            }
+            catch (MySqlException a)
+            {
+                Debug.WriteLine("Error de conexion");
+                return null;
+            }
+
+        }
+
+        internal List<ApuestaDTO3> RetrievebyMercadoUsuario(int mercado, string email)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "select tipomercado, tipoapuesta, cuota, dineroapostado from apuestas LEFT JOIN mercados ON apuestas.idmercado=mercados.idmercado WHERE refusuario = @A AND mercados.idmercado = @A2";
+            command.Parameters.AddWithValue("@A", mercado);
+            command.Parameters.AddWithValue("@A2", email);
+
+            try
+            {
+                con.Open();
+                MySqlDataReader res = command.ExecuteReader();
+
+                ApuestaDTO3 a = null;
+                List<ApuestaDTO3> apuestas = new List<ApuestaDTO3>();
+
+                while (res.Read())
+                {
+                    Debug.WriteLine("Recuperado: " + res.GetDouble(0) + " " + res.GetString(1) + " " + res.GetDouble(2) + res.GetDouble(3));
+                    a = new ApuestaDTO3(res.GetDouble(0), res.GetString(1), res.GetDouble(2), res.GetDouble(3));
+                    apuestas.Add(a);
+                }
+
+                con.Close();
+                return apuestas;
+            }
+            catch (MySqlException a)
+            {
+                Debug.WriteLine("Error de conexion");
+                return null;
+            }
+
+        }
+
         public void Save(Apuesta a)
         {
             MySqlConnection con = Connect();

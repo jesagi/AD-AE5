@@ -47,4 +47,36 @@ namespace AplicacionWeb.Models
         public string Fecha { get; set; }
         public string RefUsuario { get; set; }
     }
+
+    public class ApuestaDTO2
+    {
+        public ApuestaDTO2(string tipoApuesta, double cuota, double dinieroApostado, int refEvento)
+        {
+            TipoApuesta = tipoApuesta;
+            Cuota = cuota;
+            DinieroApostado = dinieroApostado;
+            RefEvento = refEvento;
+        }
+
+        public string TipoApuesta { get; set; }
+        public double Cuota { get; set; }
+        public double DinieroApostado { get; set; }
+        public int RefEvento { get; set; }
+    }
+
+    public class ApuestaDTO3
+    {
+        public ApuestaDTO3(double tipoMercado, string tipoApuesta, double cuota, double dinieroApostado)
+        {
+            TipoMercado = tipoMercado;
+            TipoApuesta = tipoApuesta;
+            Cuota = cuota;
+            DinieroApostado = dinieroApostado;
+        }
+
+        public double TipoMercado { get; set; }
+        public string TipoApuesta { get; set; }
+        public double Cuota { get; set; }
+        public double DinieroApostado { get; set; }
+    }
 }

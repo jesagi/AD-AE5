@@ -34,7 +34,7 @@ namespace Web_API.Models
                 while (res.Read())
                 {
                     Debug.WriteLine("Recuperado: " + res.GetInt32(0) + " " + res.GetDouble(1) + " " + res.GetDouble(2) + " " + res.GetDouble(3) + " " + res.GetDouble(4) + " " + res.GetDouble(5));
-                    m = new Mercado(res.GetInt32(0), res.GetDouble(1), res.GetDouble(2), res.GetDouble(3), res.GetDouble(4), res.GetDouble(5));
+                    m = new Mercado(res.GetInt32(0), res.GetInt32(1), res.GetDouble(2), res.GetDouble(3), res.GetDouble(4), res.GetDouble(5), res.GetDouble(6));
                     mercados.Add(m);
                 }
 
@@ -67,6 +67,39 @@ namespace Web_API.Models
                 {
                     Debug.WriteLine("Recuperado: " + " " + res.GetDouble(1) + " " + res.GetDouble(2) + " " + res.GetDouble(3));
                     m = new MercadoDTO(res.GetDouble(1), res.GetDouble(2), res.GetDouble(3));
+                    mercados.Add(m);
+                }
+
+                con.Close();
+                return mercados;
+            }
+            catch (MySqlException m)
+            {
+                Debug.WriteLine("Error de conexion");
+                return null;
+            }
+
+        }
+        internal List<Mercado> RetrievebyEventoMercado(int refevento, double tipomercado)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "select * from Mercados where refevento = @A and tipomercado = @A2";
+            command.Parameters.AddWithValue("@A", refevento);
+            command.Parameters.AddWithValue("@A2", tipomercado);
+
+            try
+            {
+                con.Open();
+                MySqlDataReader res = command.ExecuteReader();
+
+                Mercado m = null;
+                List<Mercado> mercados = new List<Mercado>();
+
+                while (res.Read())
+                {
+                    Debug.WriteLine("Recuperado: " + res.GetInt32(0) + " " + res.GetInt32(1) + " " + res.GetDouble(2) + " " + res.GetDouble(3) + " " + res.GetDouble(4) + " " + res.GetDouble(5) + " " + res.GetDouble(6));
+                    m = new Mercado(res.GetInt32(0), res.GetInt32(1), res.GetDouble(2), res.GetDouble(3), res.GetDouble(4), res.GetDouble(5), res.GetDouble(6));
                     mercados.Add(m);
                 }
 
