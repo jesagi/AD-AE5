@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Web_API.Models;
 
 namespace AplicacionWeb.Models
 {
@@ -16,10 +17,11 @@ namespace AplicacionWeb.Models
             RefCuentaBancaria = refCuentaBancaria;
         }
 
-        public string Email { get; set; }
+        public string UsuarioId { get; set; }
         public string Nombre { get; set; }
         public string Apellidos { get; set; }
         public int Edad { get; set; }
         public int RefCuentaBancaria { get; set; }
+        public Cuenta cuenta { get; set; }
+
     }
-}

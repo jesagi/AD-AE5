@@ -10,15 +10,17 @@ namespace Web_API.Models
 {
     public class ApuestasRepository
     {
+        /*
         private MySqlConnection Connect()
         {
             string constring = "Server=127.0.0.1;Port=3306;Database=placemybet;uid=root;password=;sslMode=none";
             MySqlConnection con = new MySqlConnection(constring);
             return con;
         }
-
+        */
         internal List<Apuesta> Retrieve()
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select * from Apuestas";
@@ -46,10 +48,12 @@ namespace Web_API.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-
+            */
+            return null;
         }
         internal List<ApuestaDTO> RetrieveDTO()
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select * from Apuestas";
@@ -77,11 +81,13 @@ namespace Web_API.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-
+            */
+            return null;
         }
 
         internal List<ApuestaDTO2> RetrievebyUsuarioMercado(string email, double mercado)
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select tipoapuesta, cuota, dineroapostado, apuestas.refevento from apuestas LEFT JOIN mercados ON apuestas.idmercado=mercados.idmercado WHERE refusuario = @A AND tipomercado= @A2";
@@ -111,11 +117,13 @@ namespace Web_API.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-
+            */
+            return null;
         }
 
         internal List<ApuestaDTO3> RetrievebyMercadoUsuario(int mercado, string email)
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select tipomercado, tipoapuesta, cuota, dineroapostado from apuestas LEFT JOIN mercados ON apuestas.idmercado=mercados.idmercado WHERE refusuario = @A AND mercados.idmercado = @A2";
@@ -145,11 +153,13 @@ namespace Web_API.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-
+            */
+            return null;
         }
 
         public void Save(Apuesta a)
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand com = con.CreateCommand();
             com.CommandText = "insert into apuestas(mercado, tipoapuesta, cuota, dineroapostado, fecha, refevento, refusuario) values ('" + a.Mercado + "','" + a.TipoApuesta + "','" + a.Cuota + "','" + a.DinieroApostado + "''" + DateTime.Now.ToString("yyy/mm/dd") + "','" + 1 + "','" + a.RefUsuario + "') ";
@@ -164,6 +174,7 @@ namespace Web_API.Models
             {
                 Debug.WriteLine("Error de conexion");
             }
+            */
         }
 
         public void ActualizarCuota(Apuesta a)
@@ -174,7 +185,7 @@ namespace Web_API.Models
             double dineroUnder = a.DinieroApostado;
             double cuotaOver;
             double cuotaUnder;
-
+            /*
             MySqlConnection con = Connect();
             MySqlCommand comOver = con.CreateCommand();
             MySqlCommand comUnder = con.CreateCommand();
@@ -193,13 +204,13 @@ namespace Web_API.Models
             {
                 Debug.WriteLine("Error de conexion");
             }
-
+            */
             probOver = dineroOver / (dineroOver + dineroUnder);
             probUnder = dineroUnder / (dineroOver + dineroUnder);
 
             cuotaOver = 1 / probOver * 0.95;
             cuotaUnder = 1 / probUnder * 0.95;
-
+            /*
             comOver.CommandText = "update mercados set cuotaover='" + cuotaOver + "', cuotaunder='" + cuotaUnder + "', dineroover='" + dineroOver + "', dinerounder='" + dineroUnder + "'";
             comUnder.CommandText = "select dinerounder from mercados where idmercado is '" + a.Mercado + "'";
 
@@ -214,7 +225,7 @@ namespace Web_API.Models
             {
                 Debug.WriteLine("Error de conexion");
             }
-
+            */
         }
     }
 }

@@ -10,15 +10,17 @@ namespace Web_API.Models
 {
     public class MercadosRepository
     {
+        /*
         private MySqlConnection Connect()
         {
             string constring = "Server=127.0.0.1;Port=3306;Database=placemybet;uid=root;password=;sslMode=none";
             MySqlConnection con = new MySqlConnection(constring);
             return con;
         }
-
+        */
         internal List<Mercado> Retrieve()
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select * from Mercados";
@@ -46,11 +48,13 @@ namespace Web_API.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-
+            */
+            return null;
         }
 
         internal List<MercadoDTO> RetrieveDTO()
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select * from Mercados";
@@ -78,10 +82,12 @@ namespace Web_API.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-
+            */
+            return null;
         }
         internal List<Mercado> RetrievebyEventoMercado(int refevento, double tipomercado)
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select * from Mercados where refevento = @A and tipomercado = @A2";
@@ -111,7 +117,8 @@ namespace Web_API.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-
+            */
+            return null;
         }
 
     }

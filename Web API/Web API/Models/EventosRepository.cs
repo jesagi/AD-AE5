@@ -6,15 +6,17 @@ namespace AplicacionWeb.Models
 {
     public class EventosRepository
     {
+        /*
         private MySqlConnection Connect()
         {
             string constring = "Server=127.0.0.1;Port=3306;Database=placemybet;uid=root;password=;sslMode=none";
             MySqlConnection con = new MySqlConnection(constring);
             return con;
         }
-
+        */
         internal List<Evento> Retrieve()
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select * from Eventos";
@@ -42,10 +44,12 @@ namespace AplicacionWeb.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-            
+            */
+            return null;
         }
         internal List<EventoDTO> RetrieveDTO()
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select * from Eventos";
@@ -73,7 +77,8 @@ namespace AplicacionWeb.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-
+            */
+            return null;
         }
     }
 }

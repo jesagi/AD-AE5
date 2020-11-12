@@ -10,15 +10,17 @@ namespace Web_API.Models
 {
     public class UsuariosRepository
     {
+        /*
         private MySqlConnection Connect()
         {
             string constring = "Server=127.0.0.1;Port=3306;Database=placemybet;uid=root;password=;sslMode=none";
             MySqlConnection con = new MySqlConnection(constring);
             return con;
         }
-
+        */
         internal List<Usuario> Retrieve()
         {
+            /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select * from Usuarios";
@@ -46,7 +48,8 @@ namespace Web_API.Models
                 Debug.WriteLine("Error de conexion");
                 return null;
             }
-
+            */
+            return null;
         }
     }
 }
