@@ -7,7 +7,7 @@ namespace AplicacionWeb.Models
 {
     public class Apuesta
     {
-        public Apuesta(int idApuesta, int mercado, string tipoApuesta, double cuota, double dinieroApostado, string fecha, int refEvento, string refUsuario)
+        public Apuesta(int idApuesta, int mercado, string tipoApuesta, double cuota, double dinieroApostado, string fecha, int refEvento, string usuarioId)
         {
             IdApuesta = idApuesta;
             Mercado = mercado;
@@ -16,7 +16,7 @@ namespace AplicacionWeb.Models
             DinieroApostado = dinieroApostado;
             Fecha = fecha;
             RefEvento = refEvento;
-            RefUsuario = refUsuario;
+            UsuarioId = usuarioId;
         }
 
         public int IdApuesta { get; set; }
@@ -26,7 +26,8 @@ namespace AplicacionWeb.Models
         public double DinieroApostado { get; set; }
         public string Fecha { get; set; }
         public int RefEvento { get; set; }
-        public string RefUsuario { get; set; }
+        public string UsuarioId { get; set; }
+        public Usuario usuario { get; set; }
     }
     public class ApuestaDTO
     {

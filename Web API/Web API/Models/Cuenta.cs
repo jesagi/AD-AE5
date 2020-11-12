@@ -11,7 +11,7 @@ namespace Web_API.Models
         public int CuentaId { get; set; }
         public double Saldo { get; set; }
         public string NombreBanco { get; set; }
-        public int UsuarioId { get; set; }
+        public string UsuarioId { get; set; }
         public Usuario usuario { get; set; }
     }
 }

@@ -8,9 +8,9 @@ namespace AplicacionWeb.Models
 {
     public class Usuario
     {
-        public Usuario(string email, string nombre, string apellidos, int edad, int refCuentaBancaria)
+        public Usuario(string usuarioId, string nombre, string apellidos, int edad, int refCuentaBancaria)
         {
-            Email = email;
+            UsuarioId = usuarioId;
             Nombre = nombre;
             Apellidos = apellidos;
             Edad = edad;
@@ -23,5 +23,5 @@ namespace AplicacionWeb.Models
         public int Edad { get; set; }
         public int RefCuentaBancaria { get; set; }
         public Cuenta cuenta { get; set; }
-
+        public List<Apuesta> Apuesta { get; set; }
     }
