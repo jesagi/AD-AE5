@@ -1,7 +1,7 @@
 #Creamos y ponemos en uso la BD.
-CREATE DATABASE PlaceMyBet;
+CREATE DATABASE PlaceMyBet2;
 
-USE PlaceMyBet;
+USE PlaceMyBet2;
 
 #Creamos las tablas.
 CREATE TABLE APUESTAS(

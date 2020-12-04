@@ -12,19 +12,18 @@ namespace Web_API.Controllers
     public class ApuestasController : ApiController
     {
         // GET: api/Apuestas
-        public IEnumerable<ApuestaDTO> Get()
+        public IEnumerable<Apuesta> Get()
         {
             var repo = new ApuestasRepository();
-            List<ApuestaDTO> apuestas = repo.RetrieveDTO();
+            List<Apuesta> apuestas = repo.Retrieve();
             return apuestas;
         }
 
-        // GET: api/Apuestas?emailusuario=value1&tipomercado=value2
-        [Authorize(Roles = "Admin")]
-        public IEnumerable<ApuestaDTO2> Get(string emailusuario, double tipomercado)
+        // GET: api/Apuestas?id=value1
+        public IEnumerable<Apuesta> Get(int id)
         {
             var repo = new ApuestasRepository();
-            List<ApuestaDTO2> apuesta = repo.RetrievebyUsuarioMercado(emailusuario, tipomercado);
+            List<Apuesta> apuesta = repo.RetrieveById(id);
             return apuesta;
         }
 
@@ -38,12 +37,11 @@ namespace Web_API.Controllers
         }
 
         // POST: api/Apuestas
-        [Authorize]
         public void Post([FromBody]Apuesta apuesta)
         {
             var repo = new ApuestasRepository();
             repo.Save(apuesta);
-            repo.ActualizarCuota(apuesta);
+            //repo.ActualizarCuota(apuesta);
         }
 
         // PUT: api/Apuestas/5

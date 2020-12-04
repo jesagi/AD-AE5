@@ -1,6 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using WebApplication2.Models;
 
 namespace AplicacionWeb.Models
 {
@@ -16,6 +18,14 @@ namespace AplicacionWeb.Models
         */
         internal List<Evento> Retrieve()
         {
+            List<Evento> eventos = new List<Evento>();
+
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                eventos = context.Eventos.ToList();
+            }
+
+            return eventos;
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();

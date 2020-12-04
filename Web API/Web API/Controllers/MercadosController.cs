@@ -12,18 +12,18 @@ namespace Web_API.Controllers
     public class MercadosController : ApiController
     {
         // GET: api/Mercados
-        public IEnumerable<MercadoDTO> Get()
+        public IEnumerable<Mercado> Get()
         {
             var repo = new MercadosRepository();
-            List<MercadoDTO> mercados = repo.RetrieveDTO();
+            List<Mercado> mercados = repo.Retrieve();
             return mercados;
         }
 
-        // GET: api/Mercados?refevento=valor1&tipomercado=valor2
-        public IEnumerable<Mercado> Get(int refevento, double tipomercado)
+        // GET: api/Mercados?id=valor1
+        public IEnumerable<Mercado> Get(int id)
         {
             var repo = new MercadosRepository();
-            List<Mercado> mercados = repo.RetrievebyEventoMercado(refevento,tipomercado);
+            List<Mercado> mercados = repo.RetrieveById(id);
             return mercados;
         }
 

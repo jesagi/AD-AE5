@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using WebApplication2.Models;
 
 namespace Web_API.Models
 {
@@ -20,6 +21,15 @@ namespace Web_API.Models
         */
         internal List<Mercado> Retrieve()
         {
+            List<Mercado> mercados = new List<Mercado>();
+
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                mercados = context.Mercados.ToList();
+            }
+
+            return mercados;
+            /*
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
@@ -49,7 +59,6 @@ namespace Web_API.Models
                 return null;
             }
             */
-            return null;
         }
 
         internal List<MercadoDTO> RetrieveDTO()
@@ -85,8 +94,18 @@ namespace Web_API.Models
             */
             return null;
         }
-        internal List<Mercado> RetrievebyEventoMercado(int refevento, double tipomercado)
+        internal List<Mercado> RetrieveById(int id)
         {
+            List<Mercado> mercados = new List<Mercado>();
+
+            using (var context = new PlaceMyBetContext())
+            {
+                mercados = context.Mercados
+                    .Where(b => b.MercadoId == (id))
+                    .ToList();
+            }
+
+            return mercados;
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();

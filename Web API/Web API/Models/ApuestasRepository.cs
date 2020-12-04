@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using WebApplication2.Models;
 
 namespace Web_API.Models
 {
@@ -20,6 +21,14 @@ namespace Web_API.Models
         */
         internal List<Apuesta> Retrieve()
         {
+            List<Apuesta> apuestas = new List<Apuesta>();
+
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                apuestas = context.Apuestas.ToList();
+            }
+
+            return apuestas;
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
@@ -49,7 +58,6 @@ namespace Web_API.Models
                 return null;
             }
             */
-            return null;
         }
         internal List<ApuestaDTO> RetrieveDTO()
         {
@@ -85,8 +93,18 @@ namespace Web_API.Models
             return null;
         }
 
-        internal List<ApuestaDTO2> RetrievebyUsuarioMercado(string email, double mercado)
+        internal List<Apuesta> RetrieveById(int id)
         {
+            List<Apuesta> apuestas = new List<Apuesta>();
+
+            using (var context = new PlaceMyBetContext())
+            {
+                apuestas = context.Apuestas
+                    .Where(b => b.ApuestaId == (id))
+                    .ToList();
+            }
+
+            return apuestas;
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
@@ -159,6 +177,11 @@ namespace Web_API.Models
 
         public void Save(Apuesta a)
         {
+            using (var context = new PlaceMyBetContext())
+            {
+                context.Apuestas.Add(new Apuesta { ApuestaId = a.ApuestaId, Mercado = a.Mercado, TipoApuesta = a.TipoApuesta, Cuota = a.Cuota, DinieroApostado = a.DinieroApostado, Fecha = a.Fecha, UsuarioId = a.UsuarioId, EventoId = a.EventoId });
+                context.SaveChanges();
+            }
             /*
             MySqlConnection con = Connect();
             MySqlCommand com = con.CreateCommand();
