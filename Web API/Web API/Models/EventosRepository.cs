@@ -62,6 +62,19 @@ namespace AplicacionWeb.Models
             */
         }
 
+        internal void ActualizarEquipos(int id, string eLocal, string eVisitante)
+        {
+            List<EventoDTO> eventos = new List<EventoDTO>();
+
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                var evento = context.Eventos.Single(e => e.EventoId == id );
+                evento.EquipoLocal = eLocal;
+                evento.EquipoVisitante = eVisitante;
+                context.SaveChanges();
+            }
+        }
+
         internal void Save(Evento e)
         {
             using (var context = new PlaceMyBetContext())
@@ -110,7 +123,8 @@ namespace AplicacionWeb.Models
                 return null;
             }
             */
-            return null;
         }
+
+
     }
 }
