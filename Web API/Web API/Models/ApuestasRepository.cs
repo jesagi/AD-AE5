@@ -180,6 +180,22 @@ namespace Web_API.Models
             using (var context = new PlaceMyBetContext())
             {
                 context.Apuestas.Add(new Apuesta { ApuestaId = a.ApuestaId, Mercado = a.Mercado, TipoApuesta = a.TipoApuesta, Cuota = a.Cuota, DinieroApostado = a.DinieroApostado, Fecha = a.Fecha, UsuarioId = a.UsuarioId, EventoId = a.EventoId });
+                var mercado = context.Mercados.Single(b => b.MercadoId == a.Mercado);
+                
+                if (a.TipoApuesta == "Over")
+                {
+                    mercado.DineroOver =+ a.DinieroApostado;
+                } else if (a.TipoApuesta == "Under")
+                {
+                    mercado.DineroUnder =+ a.DinieroApostado;
+                }
+
+                double probOver = mercado.DineroOver / (mercado.DineroOver + mercado.DineroUnder);
+                double probUnder = mercado.DineroUnder / (mercado.DineroOver + mercado.DineroUnder);
+
+                mercado.CuotaOver = 1 / probOver * 0.95;
+                mercado.CuotaUnder = 1 / probUnder * 0.95;
+
                 context.SaveChanges();
             }
             /*

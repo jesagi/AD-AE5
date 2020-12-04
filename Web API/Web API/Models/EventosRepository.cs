@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -55,8 +56,17 @@ namespace AplicacionWeb.Models
                 return null;
             }
             */
-            return null;
         }
+
+        internal void Save(Evento e)
+        {
+            using (var context = new PlaceMyBetContext())
+            {
+                context.Eventos.Add(new Evento { EventoId = e.EventoId, EquipoLocal = e.EquipoLocal, EquipoVisitante = e.EquipoVisitante, Fecha = e.Fecha });
+                context.SaveChanges();
+            }
+        }
+
         internal List<EventoDTO> RetrieveDTO()
         {
             /*
