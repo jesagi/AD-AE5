@@ -28,8 +28,10 @@ namespace Web_API.Controllers
         }
 
         // POST: api/Mercados
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Mercado mercado)
         {
+            var repo = new MercadosRepository();
+            repo.Save(mercado);
         }
 
         // PUT: api/Mercados/5

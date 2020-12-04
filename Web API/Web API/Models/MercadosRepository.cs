@@ -61,6 +61,15 @@ namespace Web_API.Models
             */
         }
 
+        internal void Save(Mercado m)
+        {
+            using (var context = new PlaceMyBetContext())
+            {
+                context.Mercados.Add(new Mercado { MercadoId = m.MercadoId, TipoMercado = m.TipoMercado, CuotaUnder = m.CuotaUnder, CuotaOver = m.CuotaOver, DineroOver = m.DineroOver, DineroUnder = m.DineroUnder, EventoId = m.EventoId });
+                context.SaveChanges();
+            }
+        }
+
         internal List<MercadoDTO> RetrieveDTO()
         {
             /*
@@ -137,8 +146,9 @@ namespace Web_API.Models
                 return null;
             }
             */
-            return null;
         }
+
+
 
     }
 }
