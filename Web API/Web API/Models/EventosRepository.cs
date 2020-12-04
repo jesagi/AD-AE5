@@ -62,6 +62,16 @@ namespace AplicacionWeb.Models
             */
         }
 
+        internal void BorrarEvento(int id)
+        {
+            using (var context = new PlaceMyBetContext())
+            {
+                var evento = context.Eventos.Single(e => e.EventoId == id);
+                context.Eventos.Remove(evento);
+                context.SaveChanges();
+            }
+        }
+
         internal void ActualizarEquipos(int id, string eLocal, string eVisitante)
         {
             List<EventoDTO> eventos = new List<EventoDTO>();
