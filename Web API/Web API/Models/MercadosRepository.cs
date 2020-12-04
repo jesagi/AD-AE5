@@ -20,6 +20,7 @@ namespace Web_API.Models
             return con;
         }
         */
+
         internal List<Mercado> Retrieve()
         {
             List<Mercado> mercados = new List<Mercado>();
@@ -30,7 +31,7 @@ namespace Web_API.Models
             }
 
             return mercados;
-            /*
+           
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();

@@ -45,4 +45,14 @@ namespace AplicacionWeb.Models
         public double CuotaUnder { get; set; }
         public double CuotaOver { get; set; }
     }
+
+    public class MercadoDTOOver
+    {
+        public MercadoDTOOver(double dineroOver)
+        {
+            DineroOver = dineroOver;
+        }
+
+        public double DineroOver { get; set; }
+    }
 }

@@ -30,39 +30,34 @@ namespace Web_API.Models
             }
 
             return apuestas;
-            /*
-            MySqlConnection con = Connect();
-            MySqlCommand command = con.CreateCommand();
-            command.CommandText = "select * from Apuestas";
+          
+        }
 
-            try
+        public static ApuestaDTO ToDTO(Apuesta a)
+        {
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
             {
-                con.Open();
-                MySqlDataReader res = command.ExecuteReader();
-
-                Apuesta a = null;
-                List<Apuesta> apuestas = new List<Apuesta>();
-
-                while (res.Read())
+                var mercado = context.Mercados.Single(b => b.MercadoId == a.Mercado);
+                if (a.TipoApuesta == "Over")
                 {
-                    Debug.WriteLine("Recuperado: " + res.GetInt32(0) + " " + res.GetInt32(1) + " " + res.GetString(2) + " " + res.GetDouble(3) + " " + res.GetDouble(4) + " " + res.GetString(5) + " " + res.GetInt32(6) + " " + res.GetString(7));
-                    a = new Apuesta(res.GetInt32(0), res.GetInt32(1), res.GetString(2), res.GetDouble(3), res.GetDouble(4), res.GetString(5), res.GetInt32(6), res.GetString(7));
-                    apuestas.Add(a);
+                    return new ApuestaDTO(a.TipoApuesta, a.Cuota, a.UsuarioId, a.EventoId, mercado.DineroOver);
+                } else
+                {
+                    return new ApuestaDTO(a.TipoApuesta, a.Cuota, a.UsuarioId, a.EventoId, mercado.DineroUnder);
                 }
-
-                con.Close();
-                return apuestas;
             }
-            catch (MySqlException e)
-            {
-                Debug.WriteLine("Error de conexion");
-                return null;
-            }
-            */
         }
 
         internal List<ApuestaDTO> RetrieveDTO()
         {
+            List<ApuestaDTO> apuesta = new List<ApuestaDTO>();
+
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {                
+                apuesta = context.Apuestas.Select(p => ToDTO(p)).ToList();
+            }
+
+            return apuesta;
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();

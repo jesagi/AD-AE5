@@ -17,6 +17,10 @@ namespace AplicacionWeb.Models
             return con;
         }
         */
+        public static EventoDTO ToDTO(Evento e) {
+            return new EventoDTO(e.EquipoLocal, e.EquipoVisitante);
+        }
+
         internal List<Evento> Retrieve()
         {
             List<Evento> eventos = new List<Evento>();
@@ -69,6 +73,14 @@ namespace AplicacionWeb.Models
 
         internal List<EventoDTO> RetrieveDTO()
         {
+            List<EventoDTO> eventos = new List<EventoDTO>();
+
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                eventos = context.Eventos.Select(p => ToDTO(p)).ToList(); 
+            }
+
+            return eventos;
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();

@@ -29,15 +29,13 @@ namespace AplicacionWeb.Models
 
     public class EventoDTO
     {
-        public EventoDTO(string equipoLocal, string equipoVisitante, string fecha)
+        public EventoDTO(string equipoLocal, string equipoVisitante)
         {
             EquipoLocal = equipoLocal;
             EquipoVisitante = equipoVisitante;
-            Fecha = fecha;
         }
 
         public string EquipoLocal { get; set; }
         public string EquipoVisitante { get; set; }
-        public string Fecha { get; set; }
     }
 }
