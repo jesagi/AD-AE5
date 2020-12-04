@@ -1,4 +1,5 @@
 ﻿using AplicacionWeb.Models;
+using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Web_API.Models
 
             using (PlaceMyBetContext context = new PlaceMyBetContext())
             {
-                mercados = context.Mercados.ToList();
+                mercados = context.Mercados.Include(p => p.Evento).ToList();
             }
 
             return mercados;

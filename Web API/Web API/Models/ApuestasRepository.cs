@@ -1,4 +1,5 @@
 ﻿using AplicacionWeb.Models;
+using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Web_API.Models
 
             using (PlaceMyBetContext context = new PlaceMyBetContext())
             {
-                apuestas = context.Apuestas.ToList();
+                apuestas = context.Apuestas.Include(m => m.Mercado).ToList();
             }
 
             return apuestas;
@@ -59,6 +60,7 @@ namespace Web_API.Models
             }
             */
         }
+
         internal List<ApuestaDTO> RetrieveDTO()
         {
             /*
@@ -184,10 +186,10 @@ namespace Web_API.Models
                 
                 if (a.TipoApuesta == "Over")
                 {
-                    mercado.DineroOver =+ a.DinieroApostado;
+                    mercado.DineroOver += a.DinieroApostado;
                 } else if (a.TipoApuesta == "Under")
                 {
-                    mercado.DineroUnder =+ a.DinieroApostado;
+                    mercado.DineroUnder += a.DinieroApostado;
                 }
 
                 double probOver = mercado.DineroOver / (mercado.DineroOver + mercado.DineroUnder);

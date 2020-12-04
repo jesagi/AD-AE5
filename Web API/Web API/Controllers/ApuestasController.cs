@@ -41,7 +41,6 @@ namespace Web_API.Controllers
         {
             var repo = new ApuestasRepository();
             repo.Save(apuesta);
-            //repo.ActualizarCuota(apuesta);
         }
 
         // PUT: api/Apuestas/5
