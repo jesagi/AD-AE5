@@ -16,6 +16,16 @@ namespace AplicacionWeb.Models
             return con;
         }
         */
+
+        internal void Save(Evento e)
+        {
+            using (var context = new PlaceMyBetContext())
+            {
+                context.Eventos.Add(new Evento { EventoId = e.EventoId, EquipoLocal = e.EquipoLocal, EquipoVisitante = e.EquipoVisitante, Fecha = e.Fecha });
+                context.SaveChanges();
+            }
+        }
+
         internal List<Evento> Retrieve()
         {
             List<Evento> eventos = new List<Evento>();
