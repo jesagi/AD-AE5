@@ -62,7 +62,6 @@ namespace Web_API.Models
             }
             */
         }
-
         internal void Save(Mercado m)
         {
             using (var context = new PlaceMyBetContext())
@@ -72,8 +71,20 @@ namespace Web_API.Models
             }
         }
 
+        public static MercadoDTO ToDTO(Mercado m){
+            return new MercadoDTO(m.TipoMercado, m.CuotaOver, m.CuotaUnder); 
+        }
+
         internal List<MercadoDTO> RetrieveDTO()
         {
+            List<MercadoDTO> mercados = new List<MercadoDTO>();
+
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                mercados = context.Mercados.Select(m => ToDTO(m)).ToList();
+            }
+
+            return mercados;
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();

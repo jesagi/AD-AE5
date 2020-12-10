@@ -31,11 +31,11 @@ namespace Web_API.Controllers
             repo.Save(evento);
         }
 
-        // PUT: api/Eventos?id=value1&eLocal=value2&eVisitatne=value3
-        public void Put(int id, string eLocal, string eVisitante)
+        // PUT: api/Eventos/3
+        public void Put(int id, [FromBody] Evento eLocal)
         {
             var repo = new EventosRepository();
-            repo.ActualizarEquipos(id, eLocal, eVisitante);
+            repo.ActualizarEquipos(id, eLocal);
         }
 
         // DELETE: api/Eventos/5
