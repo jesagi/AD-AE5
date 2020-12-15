@@ -34,7 +34,7 @@ namespace Web_API.Models
         }
 
         public static ApuestaDTO ToDTO(Apuesta a)
-        {
+        {/*
             using (PlaceMyBetContext context = new PlaceMyBetContext())
             {
                 var mercado = context.Mercados.Single(b => b.MercadoId == a.Mercado);
@@ -45,7 +45,8 @@ namespace Web_API.Models
                 {
                     return new ApuestaDTO(a.TipoApuesta, a.Cuota, a.UsuarioId, a.EventoId, mercado.DineroUnder);
                 }
-            }
+            }*/
+            return null;
         }
 
         internal List<ApuestaDTO> RetrieveDTO()
@@ -176,16 +177,19 @@ namespace Web_API.Models
         {
             using (var context = new PlaceMyBetContext())
             {
-                context.Apuestas.Add(new Apuesta { ApuestaId = a.ApuestaId, Mercado = a.Mercado, TipoApuesta = a.TipoApuesta, Cuota = a.Cuota, DinieroApostado = a.DinieroApostado, Fecha = a.Fecha, UsuarioId = a.UsuarioId, EventoId = a.EventoId });
                 var mercado = context.Mercados.Single(b => b.MercadoId == a.Mercado);
                 
                 if (a.TipoApuesta == "Over")
                 {
+                    a.Cuota = mercado.CuotaOver;
                     mercado.DineroOver += a.DinieroApostado;
                 } else if (a.TipoApuesta == "Under")
                 {
+                    a.Cuota = mercado.CuotaUnder;
                     mercado.DineroUnder += a.DinieroApostado;
                 }
+
+                context.Apuestas.Add(new Apuesta { ApuestaId = a.ApuestaId, Mercado = a.Mercado, TipoApuesta = a.TipoApuesta, Cuota = a.Cuota, DinieroApostado = a.DinieroApostado, Fecha = a.Fecha, UsuarioId = a.UsuarioId, EventoId = a.EventoId });
 
                 double probOver = mercado.DineroOver / (mercado.DineroOver + mercado.DineroUnder);
                 double probUnder = mercado.DineroUnder / (mercado.DineroOver + mercado.DineroUnder);

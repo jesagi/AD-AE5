@@ -70,13 +70,9 @@ namespace Web_API.Models
                 context.SaveChanges();
             }
         }
-
-        public static MercadoDTO ToDTO(Mercado m){
-            return new MercadoDTO(m.TipoMercado, m.CuotaOver, m.CuotaUnder); 
-        }
-
+        
         internal List<MercadoDTO> RetrieveDTO()
-        {
+        {/*
             List<MercadoDTO> mercados = new List<MercadoDTO>();
 
             using (PlaceMyBetContext context = new PlaceMyBetContext())
@@ -116,18 +112,28 @@ namespace Web_API.Models
             */
             return null;
         }
-        internal List<Mercado> RetrieveById(int id)
+        /*** EJERCICIO 1 ***/
+
+        public static ApuestaDTO ToDTO(Apuesta a)
         {
-            List<Mercado> mercados = new List<Mercado>();
+            var context = new PlaceMyBetContext();
+            Usuario usuario = context.Usuarios.Single(u => u.UsuarioId == a.UsuarioId);
+            return new ApuestaDTO(a.TipoApuesta, a.DinieroApostado, usuario.Nombre);
+        }
+
+        internal List<ApuestaDTO> RetrieveById(int id)
+        {
+            List<ApuestaDTO> apuestas = new List<ApuestaDTO>();
 
             using (var context = new PlaceMyBetContext())
             {
-                mercados = context.Mercados
-                    .Where(b => b.MercadoId == (id))
-                    .ToList();
+                apuestas = context.Apuestas.Where(b => b.Mercado == (id)).
+                    Select(m => ToDTO(m)).ToList();
             }
 
-            return mercados;
+            return apuestas;
+            
+            /*** FIN EJERCICIO 1 ***/
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();

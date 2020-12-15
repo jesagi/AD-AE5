@@ -18,14 +18,15 @@ namespace Web_API.Controllers
             List<MercadoDTO> mercados = repo.RetrieveDTO();
             return mercados;
         }
-
-        // GET: api/Mercados?id=valor1
-        public IEnumerable<Mercado> Get(int id)
+        /*** EJERCICIO 1 ***/
+        // GET: api/Mercados/5
+        public IEnumerable<ApuestaDTO> Get(int id)
         {
             var repo = new MercadosRepository();
-            List<Mercado> mercados = repo.RetrieveById(id);
-            return mercados;
+            List<ApuestaDTO> apuestas = repo.RetrieveById(id);
+            return apuestas;
         }
+        /*** FIN EJERCICIO 1 ***/
 
         // POST: api/Mercados
         public void Post([FromBody]Mercado mercado)
