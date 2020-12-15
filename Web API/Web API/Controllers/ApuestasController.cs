@@ -19,11 +19,11 @@ namespace Web_API.Controllers
             return apuestas;
         }
 
-        // GET: api/Apuestas?id=value1
-        public IEnumerable<Apuesta> Get(int id)
+        // GET: api/Apuestas?dienro=value1
+        public IEnumerable<ApuestaDTO2> Get(double dinero)
         {
             var repo = new ApuestasRepository();
-            List<Apuesta> apuesta = repo.RetrieveById(id);
+            List<ApuestaDTO2> apuesta = repo.RetrieveByDinero(dinero);
             return apuesta;
         }
 

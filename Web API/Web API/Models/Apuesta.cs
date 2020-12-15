@@ -49,21 +49,21 @@ namespace AplicacionWeb.Models
         public string Nombre { get; set; }
     }
 
+    /***EJERCICIO 2 ***/
     public class ApuestaDTO2
     {
-        public ApuestaDTO2(string tipoApuesta, double cuota, double dinieroApostado, int refEvento)
+        public ApuestaDTO2(string tipoApuesta, string eLocal, string eVisitante)
         {
             TipoApuesta = tipoApuesta;
-            Cuota = cuota;
-            DinieroApostado = dinieroApostado;
-            RefEvento = refEvento;
+            EquipoLocal = eLocal;
+            EquipoVisitante = eVisitante;
         }
 
         public string TipoApuesta { get; set; }
-        public double Cuota { get; set; }
-        public double DinieroApostado { get; set; }
-        public int RefEvento { get; set; }
+        public string EquipoLocal { get; set; }
+        public string EquipoVisitante { get; set; }
     }
+    /*** EJERCICIO 2 ***/
 
     public class ApuestaDTO3
     {

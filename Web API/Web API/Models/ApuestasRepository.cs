@@ -32,25 +32,33 @@ namespace Web_API.Models
             return apuestas;
           
         }
-
-        public static ApuestaDTO ToDTO(Apuesta a)
-        {/*
+        /*** EJERICIO 2 ***/
+        public static ApuestaDTO2 ToDTO(Apuesta a)
+        {
             using (PlaceMyBetContext context = new PlaceMyBetContext())
             {
-                var mercado = context.Mercados.Single(b => b.MercadoId == a.Mercado);
-                if (a.TipoApuesta == "Over")
-                {
-                    return new ApuestaDTO(a.TipoApuesta, a.Cuota, a.UsuarioId, a.EventoId, mercado.DineroOver);
-                } else
-                {
-                    return new ApuestaDTO(a.TipoApuesta, a.Cuota, a.UsuarioId, a.EventoId, mercado.DineroUnder);
-                }
-            }*/
-            return null;
+                var context2 = new PlaceMyBetContext();
+                Evento evento = context2.Eventos.Single(e => e.EventoId == a.EventoId);
+                return new ApuestaDTO2(a.TipoApuesta, evento.EquipoLocal, evento.EquipoVisitante);
+            }
         }
 
-        internal List<ApuestaDTO> RetrieveDTO()
+        internal List<ApuestaDTO2> RetrieveByDinero(double dinero)
         {
+            List<ApuestaDTO2> apuestas = new List<ApuestaDTO2>();
+
+            using (var context = new PlaceMyBetContext())
+            {
+                apuestas = context.Apuestas
+                    .Where(b => b.DinieroApostado >= (dinero)).Select(m => ToDTO(m)).ToList();
+            }
+            return apuestas;
+        }
+        /*** FIN EJERCICIO 2 ***/
+        
+
+        internal List<ApuestaDTO> RetrieveDTO()
+        {/*
             List<ApuestaDTO> apuesta = new List<ApuestaDTO>();
 
             using (PlaceMyBetContext context = new PlaceMyBetContext())
@@ -58,7 +66,8 @@ namespace Web_API.Models
                 apuesta = context.Apuestas.Select(p => ToDTO(p)).ToList();
             }
 
-            return apuesta;
+            return apuesta;*/
+            return null;
             /*
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
